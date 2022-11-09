@@ -4,7 +4,7 @@
 
 import numpy as np
 
-def circmean(x):
+def circ_mean(x):
     """ Returns the mean vector direction
         x   : The data as an array of angles in radians.
     """
@@ -40,9 +40,9 @@ def mle_vonmises_bootstrap_CI(u, mu=None, alpha = 0.05, reps = 1000):
     """
     
     if mu is None:
-        mu = circmean(u)
+        mu = circ_mean(u)
     #bs = boot(data = u, statistic = MleVonmisesMuRad, repetitions = reps, ensemble_size = int(len(u)/2))
-    bs = boot(data = u, statistic = circmean, repetitions = reps, ensemble_size = int(len(u)/2))
+    bs = boot(data = u, statistic = circ_mean, repetitions = reps, ensemble_size = int(len(u)/2))
     
     mean = {}
     mean_reps = bs
