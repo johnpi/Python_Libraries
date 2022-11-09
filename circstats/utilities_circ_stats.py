@@ -67,6 +67,8 @@ def mle_vonmises_bootstrap_CI(u, mu=None, alpha = 0.05, reps = 1000):
     
     return result
 
+# Define alternative more recognisable name for mle_vonmises_bootstrap_CI()
+circ_CI = mle_vonmises_bootstrap_CI
 
 def circ_summary(u, rads = True):
     """ Returns some summary statistics about angular data.
