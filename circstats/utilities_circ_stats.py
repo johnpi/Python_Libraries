@@ -4,6 +4,27 @@
 
 import numpy as np
 
+def mean_resultant_vector(x):
+    """ Returns the mean resultant vector of an array of angles x.
+        Returns a two component array representing the (x, y) 
+        components of the vector. """
+    r = np.array([np.cos(x), 
+                  np.sin(x)])
+    N = len(x)
+    r_mean = np.sum(r, axis=1) / N
+    return r_mean 
+
+def resultant_vector_length(x):
+    """ Returns the length of the mean resultant vector of an array of angles x.
+        It can be used as a measure of whether the unit vectors point in the 
+        same direction (1) or are uniformly distributed spanning the 360deg. """
+    r_mean = mean_resultant_vector(x)
+    return np.sqrt(np.sum(r_mean**2))
+
+def r_vector_length(x):
+    """ Alias for the length of the mean resultant vector of an array of angles x. """
+    return resultant_vector_length(x)
+
 def circ_mean(x):
     """ Returns the mean vector direction
         x   : The data as an array of angles in radians.
