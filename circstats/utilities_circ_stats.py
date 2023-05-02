@@ -1,29 +1,43 @@
 # Python reimplementation of https://rdrr.io/cran/circular/src/R/mle.vonmises.bootstrap.ci.R
-# (c) 2022 Ioannis Pisokas
-# It gives a Maximul likelihood estimation of the Confidence Intervals of the angular mean.
+# It gives a Maximum likelihood estimation of the Confidence Intervals of the angular mean.
+# As well as some other circular statistics functions based on doi: 10.18637/jss.v031.i10
+# (c) 2022-2023 Ioannis Pisokas
 
 import numpy as np
 
-def mean_resultant_vector(x):
-    """ Returns the mean resultant vector of an array of angles x.
+# -----------------------------------------------------------------------------
+# Functions for calculating the mean vector length of an array of angles.
+# Based on doi: 10.18637/jss.v031.i10
+# -----------------------------------------------------------------------------
+def mean_resultant_vector(u):
+    """ Returns the mean resultant vector of an array of angles u.
         Returns a two component array representing the (x, y) 
-        components of the vector. """
-    r = np.array([np.cos(x), 
-                  np.sin(x)])
-    N = len(x)
+        components of the mean vector. 
+        u : is an array of angles in radians. """
+    r = np.array([np.cos(u), 
+                  np.sin(u)])
+    N = len(u)
     r_mean = np.sum(r, axis=1) / N
     return r_mean 
 
-def resultant_vector_length(x):
-    """ Returns the length of the mean resultant vector of an array of angles x.
+
+def resultant_vector_length(u):
+    """ Returns the length of the mean resultant vector of an array of angles u.
+        u : is an array of angles in radians. 
         It can be used as a measure of whether the unit vectors point in the 
-        same direction (1) or are uniformly distributed spanning the 360deg. """
-    r_mean = mean_resultant_vector(x)
+        same direction (returns 1.0) or are uniformly distributed spanning the 
+        360deg (returns 0.0). """
+    r_mean = mean_resultant_vector(u)
     return np.sqrt(np.sum(r_mean**2))
 
-def r_vector_length(x):
-    """ Alias for the length of the mean resultant vector of an array of angles x. """
-    return resultant_vector_length(x)
+
+def r_vector_length(u):
+    """ Alternative name for the length of the mean resultant vector of an 
+        array of angles u. 
+        u : is an array of angles in radians. """
+    return resultant_vector_length(u)
+# -----------------------------------------------------------------------------
+
 
 def circ_mean(x):
     """ Returns the mean vector direction
@@ -134,8 +148,9 @@ def circ_summary(u, rads = True):
     return (mu, ci, circvar, circstd)
 
 
+# -----------------------------------------------------------------------------
 # USAGE: 
-
+# -----------------------------------------------------------------------------
 if __name__ == '__main__':
     
     print('Demonstration of caluclating the Confidence Intervals of the angular mean of a sample.')
